@@ -1,22 +1,17 @@
 /**
- * HackHeist 2026 - Official Landing Page JavaScript
+ * HackHeist 2026 - Landing Page JavaScript
  * Organized by GDG on Campus MIET
- * Features:
- *  - Countdown Timer to HackHeist 2026
- *  - Responsive Navigation & Active Scroll Spy
- *  - Interactive Registration Modal & Form Handling
- *  - Dynamic Tilt & Hover Micro-interactions
+ * Simple, robust, human-written vanilla JavaScript
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initCountdownTimer();
   initModalHandling();
-  initCardInteractions();
 });
 
 /* --------------------------------------------------------------------------
-   1. Navbar & Mobile Menu Logic
+   1. Navbar & Mobile Menu
    -------------------------------------------------------------------------- */
 function initNavbar() {
   const navbar = document.getElementById('navbar');
@@ -24,9 +19,9 @@ function initNavbar() {
   const navMenu = document.getElementById('navMenu');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  // Sticky navbar shadow on scroll
+  // Subtle border shadow on scroll
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
+    if (window.scrollY > 20) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
@@ -34,14 +29,14 @@ function initNavbar() {
     updateActiveNav();
   });
 
-  // Mobile menu toggle
+  // Mobile drawer toggle
   if (mobileToggle && navMenu) {
     mobileToggle.addEventListener('click', () => {
       navMenu.classList.toggle('open');
       mobileToggle.classList.toggle('open');
     });
 
-    // Close menu when clicking any nav link
+    // Close menu on link click
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
@@ -53,18 +48,18 @@ function initNavbar() {
   // Scroll spy to highlight active section
   const sections = document.querySelectorAll('section[id]');
   function updateActiveNav() {
-    const scrollY = window.pageYOffset + 140;
+    const scrollPosition = window.pageYOffset + 120;
 
     sections.forEach(section => {
-      const sectionHeight = section.offsetHeight;
-      const sectionTop = section.offsetTop;
-      const sectionId = section.getAttribute('id');
-      const targetNavLink = document.querySelector(`.nav-link[href*="${sectionId}"]`);
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      const id = section.getAttribute('id');
+      const activeLink = document.querySelector(`.nav-link[href*="${id}"]`);
 
-      if (targetNavLink) {
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-          navLinks.forEach(link => link.classList.remove('active'));
-          targetNavLink.classList.add('active');
+      if (activeLink) {
+        if (scrollPosition >= top && scrollPosition < top + height) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          activeLink.classList.add('active');
         }
       }
     });
@@ -72,7 +67,7 @@ function initNavbar() {
 }
 
 /* --------------------------------------------------------------------------
-   2. Real-time Countdown Timer (HackHeist 2026)
+   2. Real-Time Countdown Timer to HackHeist 2026
    -------------------------------------------------------------------------- */
 function initCountdownTimer() {
   const daysEl = document.getElementById('days');
@@ -82,8 +77,7 @@ function initCountdownTimer() {
 
   if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-  // Target Date: HackHeist 2026 (October 24, 2026 at 09:00:00 IST)
-  // If current date has passed or for future demo, we calculate precisely
+  // HackHeist 2026 target date
   const targetDate = new Date('2026-10-24T09:00:00+05:30').getTime();
 
   function updateTimer() {
@@ -125,7 +119,7 @@ function openRegistrationModal() {
   if (modal) {
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden'; // prevent background scrolling
+    document.body.style.overflow = 'hidden';
   }
 }
 
@@ -135,14 +129,14 @@ function closeRegistrationModal() {
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
 
-    // Reset view after modal closes
+    // Reset view after closing
     setTimeout(() => {
       if (regForm && successState) {
         regForm.style.display = 'flex';
         successState.style.display = 'none';
         regForm.reset();
       }
-    }, 350);
+    }, 250);
   }
 }
 
@@ -159,17 +153,17 @@ function submitRegistration(event) {
   const year = document.getElementById('regYear')?.value || '';
   const track = document.getElementById('regTrack')?.value || '';
 
-  // Store registration in localStorage for demo persistence
-  const applicant = { fullName, email, college, year, track, timestamp: new Date().toISOString() };
+  // Local storage simulation
+  const registrant = { fullName, email, college, year, track, date: new Date().toISOString() };
   try {
-    const existing = JSON.parse(localStorage.getItem('hackheist_registrations') || '[]');
-    existing.push(applicant);
-    localStorage.setItem('hackheist_registrations', JSON.stringify(existing));
-  } catch (err) {
-    console.warn('LocalStorage not accessible', err);
+    const list = JSON.parse(localStorage.getItem('hackheist_registrants') || '[]');
+    list.push(registrant);
+    localStorage.setItem('hackheist_registrants', JSON.stringify(list));
+  } catch (e) {
+    console.warn('LocalStorage error:', e);
   }
 
-  // Switch to success confirmation
+  // Display confirmation view
   if (regForm && successState) {
     regForm.style.display = 'none';
     successState.style.display = 'block';
@@ -177,12 +171,10 @@ function submitRegistration(event) {
 }
 
 function initModalHandling() {
-  // Bind close button
   if (closeModalBtn) {
     closeModalBtn.addEventListener('click', closeRegistrationModal);
   }
 
-  // Close on outside click
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
@@ -191,46 +183,9 @@ function initModalHandling() {
     });
   }
 
-  // Close on Escape key press
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
       closeRegistrationModal();
     }
-  });
-
-  // Attach modal trigger to any element with #register or hero buttons
-  const heroRegisterBtn = document.getElementById('heroRegisterBtn');
-  if (heroRegisterBtn) {
-    heroRegisterBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openRegistrationModal();
-    });
-  }
-}
-
-/* --------------------------------------------------------------------------
-   4. Interactive Subtle 3D Card Hover Effect
-   -------------------------------------------------------------------------- */
-function initCardInteractions() {
-  const cards = document.querySelectorAll('[data-tilt]');
-
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = ((y - centerY) / centerY) * -5;
-      const rotateY = ((x - centerX) / centerX) * 5;
-
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
-    });
   });
 }
