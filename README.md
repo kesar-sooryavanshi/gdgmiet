@@ -35,10 +35,10 @@ HackHeist is a developer-focused gathering organized by GDG on Campus MIET where
 ---
 
 ## 🎨 Design System & Aesthetics
-- **Google / GDG Brand Palette**: Blue (`#4285F4`), Red (`#EA4335`), Yellow (`#FBBC04`), Green (`#34A853`).
-- **Modern Dark Theme**: Deep slate `#090c13` with soft ambient light glows, glassmorphism (`backdrop-filter: blur`), and clean contrast.
-- **Typography**: Google Fonts (*Plus Jakarta Sans* for clean headings/body, *JetBrains Mono* for numbers & dates).
-- **100% Responsive**: Tailored for mobile screens (360px, 390px), tablets (768px), and desktops (1024px, 1366px, 1920px).
+- **Google / GDG Brand Palette**: Authentic, natural Google tones: Blue (`#1a73e8`), Red (`#d93025`), Amber (`#ea8600`), and Green (`#1e8e3e`).
+- **Clean Human Aesthetic**: Natural crisp white card surfaces (`#ffffff`), soft slate backdrop (`#f8fafc`), clean subtle borders (`#e2e8f0`), high-contrast typography, and zero artificial neon glows.
+- **Typography**: Google Fonts (*Inter* for readable body copy, *Plus Jakarta Sans* for crisp titles).
+- **100% Responsive**: Tested across mobile (360px, 390px), tablets (768px), and desktops (1024px, 1366px, 1920px).
 
 ---
 
@@ -77,8 +77,7 @@ npx serve .
 ### A. HackHeist Task
 - **Live Website Link**: *(Deploy via GitHub Pages, Vercel, or Netlify)*
 - **GitHub Repository**: *(Your GitHub repository URL containing this clean code)*
-- **Short Explanation (3–5 lines)**:
-  > *"I built a clean, responsive single-page landing website for HackHeist (GDG on Campus MIET) using semantic HTML5, modern vanilla CSS, and lightweight JavaScript without external dependencies. The design adheres to the Google brand palette with modern glassmorphism, fluid typography, and dark mode aesthetics. It features an interactive countdown timer, subtle 3D card hover physics, a dynamic registration modal, and complete responsiveness across mobile, tablet, and desktop viewports."*
+  > *"I built a clean, responsive single-page landing website for HackHeist (GDG on Campus MIET) using semantic HTML5, pure CSS3, and vanilla JavaScript without any external libraries. The website uses authentic Google Developer brand colors, clean card surfaces, readable typography, and an approachable community layout. It includes an interactive countdown timer to HackHeist 2026, an accessible student registration modal, and complete responsiveness across mobile, tablet, and desktop viewports."*
 
 ### B. Your Two Best Projects (Template)
 - **Project 1**:
